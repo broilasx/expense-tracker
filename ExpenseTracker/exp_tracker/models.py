@@ -2,7 +2,7 @@ from django.db import models
 from datetime import datetime
 
 # Create your models here.
-class Accounts(models.Model):
+class Account(models.Model):
     name = models.CharField(max_length=100)
     expense = models.FloatField(default=0.0)
     user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
@@ -20,10 +20,8 @@ class Expense(models.Model):
 
     def save(self, *args, **kwargs):
         if self.long_term :
-            self.monthly_expense = self.calculate_monthly_expense()
-        else:
-            self.monthly_expense = 0.0
-        super().save(*args, **kwargs)
+            self.monthly_expense = calculate_monthly_expense
+        super(Expenses, self).save(*args, **kwargs)
 
     def calculate_monthly_expense(self):
         if self.long_term:
